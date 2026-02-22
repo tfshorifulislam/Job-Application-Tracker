@@ -15,28 +15,31 @@
         *{ font-family: "Outfit", sans-serif;}
     </style>
 </head>
-<body class="bg-[#fcf8f8] h-screen">
+<body class="bg-[#fcf8f8]">
+
     <main class="w-[80%] mx-auto pt-16 ">
 
+        <!-- job application tracker -->
         <div class="title font-bold text-4xl text-[#002C5C] mb-5 ">
             <h1>Job Application Tracker</h1>
         </div>
 
+        <!-- job application tracker box -->
         <div class="tracker-card grid md:grid-cols-3 grid-cols-1 gap-4 mb-7">
 
-            <div class="total col-span-1 w-full h-[100px] rounded-lg border border-[#F1F2F4] p-5 bg-white">
+            <div id="total" class="col-span-1 w-full h-[100px] rounded-lg border border-[#F1F2F4] p-5 bg-white">
                 <p class="font-medium text-[#323B49]">Total</p>
-                <p class="font-bold text-2xl">0</p>
+                <p id="total-jobs" class="font-bold text-2xl">0</p>
             </div>
 
-            <div class="interview col-span-1 w-full h-[100px] rounded-lg border border-[#F1F2F4] p-5 bg-white">
+            <div id="interview" class="col-span-1 w-full h-[100px] rounded-lg border border-[#F1F2F4] p-5 bg-white">
                 <p class="font-medium text-[#323B49]">Interview</p>
-                <p class="font-bold text-2xl">0</p>
+                <p class="font-bold text-2xl" id="total-interview">0</p>
             </div>
 
-            <div class="rejected col-span-1 w-full h-[100px] rounded-lg border border-[#F1F2F4] p-5 bg-white">
+            <div id="rejected" class="col-span-1 w-full h-[100px] rounded-lg border border-[#F1F2F4] p-5 bg-white">
                 <p class="font-medium text-[#323B49]">Rejected</p>
-                <p class="font-bold text-2xl">0</p>
+                <p class="font-bold text-2xl" id="total-rejected">0</p>
             </div>
 
         </div>
@@ -47,21 +50,31 @@
         <section>
 
             <div class="flex justify-between mb-6">
-                <h2 class="text-xl text-[#002C5C] font-semibold ">Available Jobs</h2>
-                <p class="font-medium text-[#64748B]">8 jobs</p>
-            </div>
 
-            <div class="all-btn flex gap-2 mb-4">
-                <button class="btn btn-xs sm:btn-sm md:btn-md lg:btn-lg xl:btn-md bg-[#3B82F6] text-white">All</button>
-                <button class="btn btn-xs sm:btn-sm md:btn-md lg:btn-lg xl:btn-md">Interview</button>
-                <button class="btn btn-xs sm:btn-sm md:btn-md lg:btn-lg xl:btn-md">Rejected</button>
+                <h2 class="text-xl text-[#002C5C] font-semibold ">Available Jobs</h2>
+
+                <p class="font-medium text-[#64748B]"> <span id="total-jobs2">0</span> jobs</p>
+
+            </div>
+            
+            <!-- all interview & reject btn -->
+            <div id="all-btn" class="flex gap-2 mb-4">
+                
+                <button onclick="toggleStyle('all-filter-btn')" class="btn btn-xs sm:btn-sm md:btn-md lg:btn-lg xl:btn-md bg-[#3B82F6] text-white" id="all-filter-btn">All</button>
+
+                <button onclick="toggleStyle('interview-filter-btn')" class="btn btn-xs sm:btn-sm md:btn-md lg:btn-lg xl:btn-md" id="interview-filter-btn">Interview</button>
+
+                <button onclick="toggleStyle('rejected-filter-btn')" class="btn btn-xs sm:btn-sm md:btn-md lg:btn-lg xl:btn-md" id="rejected-filter-btn">Rejected</button>
+
             </div>
 
         </section>
         
         <!-- card section -->
-        <section class="all-card space-y-4">
-            <div class="bg-white rounded-lg border border-[#F1F2F4] p-6">
+        <section id="all-job-card" class="space-y-4">
+
+            <!-- card 1 -->
+            <div class="job-card bg-white rounded-lg border border-[#F1F2F4] p-6">
 
             <div class="flex justify-between items-center mb-5">
                 <div>
@@ -81,13 +94,15 @@
             <p class="text-[#323B49] text-[14px] mb-5">Build cross-platform mobile applications using React Native. Work on products used by millions of users worldwide.</p>
 
 
-            <button class="btn btn-neutral btn-outline text-[#10B981] border-[#10B981] font-semibold mr-2">Interview</button>
+            <button onclick="addToInterview(this)" class="btn btn-neutral btn-outline text-[#10B981] border-[#10B981] font-semibold mr-2">Interview</button>
 
-            <button class="btn btn-neutral btn-outline  text-[#EF4444] border-[#EF4444] font-semibold">Rejected</button>
+            <button onclick="addToRejected(this)" class="btn btn-neutral btn-outline  text-[#EF4444] border-[#EF4444] font-semibold">Rejected</button>
 
             </div>
+
         </section>
 
-    </main>z
+    </main>
+    <script src="./script/script.js"></script>
 </body>
 </html>
