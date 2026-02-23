@@ -198,24 +198,35 @@ function countAllSectionJobs() {
         }
     };
 
-    // initial update
     updateCount();
-
-    // filter buttons click এ update হবে
     allFilteredBtn.addEventListener('click', updateCount);
     interviewFilterBtn.addEventListener('click', updateCount);
     rejectedFilterBtn.addEventListener('click', updateCount);
 
-    // job delete / status change হলে update হবে
+    // job delete / status change or update
     mainContainer.addEventListener('click', updateCount);
 }
-
-// page load এ call
+// page load call
 countAllSectionJobs();
 
+
+// render part
 function renderInterview (){
 
     filteredSection.innerHTML ='';
+
+    if (interviewList.length === 0) {
+    filteredSection.innerHTML = `
+        <div class="flex flex-col items-center justify-center py-20">
+            <img src="./jobs.png" alt="No Rejected Jobs" class="w-40 h-40 mb-4">
+            <p class="text-gray-500 text-lg">No Rejected Jobs Yet!</p>
+            <p class="text-gray-500 text-lg">Check Back Soon for new job Opportunities</p>
+        </div>
+    `;
+    return;
+}
+
+
 
     for (let interviewCard of interviewList ){
         
@@ -271,6 +282,19 @@ function renderRejected (){
 
     filteredSection.innerHTML ='';
 
+    if (rejectedList.length === 0) {
+    filteredSection.innerHTML = `
+        <div class="flex flex-col items-center justify-center py-20">
+            <img src="./jobs.png" alt="No Rejected Jobs" class="w-40 h-40 mb-4">
+            <p class="text-gray-500 text-lg">No Rejected Jobs Yet!</p>
+            <p class="text-gray-500 text-lg">Check Back Soon for new job Opportunities</p>
+        </div>
+    `;
+    return;
+}
+
+
+
     for (let rejectedCard of rejectedList ){
         
         // console.log(interviewCard)
@@ -319,3 +343,4 @@ function renderRejected (){
                 filteredSection.appendChild(div)
     }
 }
+
