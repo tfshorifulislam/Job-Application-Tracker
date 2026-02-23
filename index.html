@@ -17,46 +17,42 @@
 </head>
 <body class="bg-[#fcf8f8]">
 
-    <main class="w-[80%] mx-auto pt-16 ">
+        <header class="w-[80%] mx-auto pt-16">
+            <h1 class="font-bold text-4xl text-[#002C5C] mb-5 ">Job Application Tracker</h1>
 
-        <!-- job application tracker -->
-        <div class="title font-bold text-4xl text-[#002C5C] mb-5 ">
-            <h1>Job Application Tracker</h1>
-        </div>
+            <!-- job application tracker box -->
+            <div class="grid md:grid-cols-3 grid-cols-1 gap-4 mb-7">
 
-        <!-- job application tracker box -->
-        <div class="tracker-card grid md:grid-cols-3 grid-cols-1 gap-4 mb-7">
+                <div class="col-span-1 w-full h-[100px] rounded-lg border border-[#F1F2F4] p-5 bg-white">
+                    <p class="font-medium text-[#323B49]">Total</p>
+                    <p id="total-jobs" class="font-bold text-2xl">0</p>
+                </div>
 
-            <div id="total" class="col-span-1 w-full h-[100px] rounded-lg border border-[#F1F2F4] p-5 bg-white">
-                <p class="font-medium text-[#323B49]">Total</p>
-                <p id="total-jobs" class="font-bold text-2xl">0</p>
+                <div class="col-span-1 w-full h-[100px] rounded-lg border border-[#F1F2F4] p-5 bg-white">
+                    <p class="font-medium text-[#323B49]">Interview</p>
+                    <p class="font-bold text-2xl" id="total-interview">0</p>
+                </div>
+
+                <div class="col-span-1 w-full h-[100px] rounded-lg border border-[#F1F2F4] p-5 bg-white">
+                    <p class="font-medium text-[#323B49]">Rejected</p>
+                    <p class="font-bold text-2xl" id="total-rejected">0</p>
+                </div>
+
             </div>
 
-            <div id="interview" class="col-span-1 w-full h-[100px] rounded-lg border border-[#F1F2F4] p-5 bg-white">
-                <p class="font-medium text-[#323B49]">Interview</p>
-                <p class="font-bold text-2xl" id="total-interview">0</p>
-            </div>
-
-            <div id="rejected" class="col-span-1 w-full h-[100px] rounded-lg border border-[#F1F2F4] p-5 bg-white">
-                <p class="font-medium text-[#323B49]">Rejected</p>
-                <p class="font-bold text-2xl" id="total-rejected">0</p>
-            </div>
-
-        </div>
+        </header>
 
         <hr class="text-[#E6E7E9] mb-7">
 
-
-        <section>
+        <main class="w-[80%] mx-auto pt-16">
 
             <div class="flex justify-between mb-6">
 
-                <h2 class="text-xl text-[#002C5C] font-semibold ">Available Jobs</h2>
-
+                <p class="text-xl text-[#002C5C] font-semibold ">Available Jobs</p>
                 <p class="font-medium text-[#64748B]"> <span id="total-jobs2">0</span> jobs</p>
 
             </div>
-            
+
             <!-- all interview & reject btn -->
             <div id="all-btn" class="flex gap-2 mb-4">
                 
@@ -68,41 +64,105 @@
 
             </div>
 
+            <!-- Filtered card -->
+
+        <section id="filtered-section" class="hidden space-y-4">
+
         </section>
-        
+
+
         <!-- card section -->
-        <section id="all-job-card" class="space-y-4">
+        <section id="all-cards" class="space-y-4">
 
             <!-- card 1 -->
-            <div class="job-card bg-white rounded-lg border border-[#F1F2F4] p-6">
+            <div class="job-card bg-white rounded-lg border border-[#F1F2F4] p-6 flex justify-between">
 
-            <div class="flex justify-between items-center mb-5">
+
                 <div>
-                    <h2 class="text-[#002C5C] font-semibold text-[18px]">Mobile First Corp</h2>
-                    <p class="text-[#64748B]">React Native Developer</p>
+
+                    <div>
+                        <p class="title-name text-[#002C5C] font-semibold text-[18px]">ByteWave Technologies</p>
+                        <p class="description-name text-[#64748B]">Backend Developer</p>
+                    </div>
+                    
+                    <p class="text-[#64748B] text-[14px] mb-5 salary">
+                        Chattogram, Bangladesh • Full-time • $60,000 - $80,000
+                    </p>
+
+                    <p class="status-btn btn btn-soft btn-primary text-[#002C5C] bg-[#EEF4FF] mb-2 ">
+                        Not Applied
+                    </p>
+
+                    <p class="note text-[#323B49] text-[14px] mb-5">
+                         Build scalable REST APIs using Node.js and MongoDB. Optimize server performance and database queries.
+                    </p>
+
+                    <button
+                        class="interview-btn btn btn-neutral btn-outline text-[#10B981] border-[#10B981] font-semibold mr-2">
+                        Interview
+                    </button>
+    
+                    <button" 
+                        class="rejected-btn btn btn-neutral btn-outline text-[#EF4444] border-[#EF4444] font-semibold">
+                        Rejected
+                    </button>
+
                 </div>
-                
-                <button class="btn btn-circle">
+
+                <button class="delete-btn btn btn-circle">
                     <img src="./Group 1.png" alt="" class="cursor-pointer">
                 </button>
-            </div>
-
-            <p class="text-[#64748B] text-[14px] mb-5">Remote • Full-time • $130,000 - $175,000</p>
-
-            <button class="btn btn-soft btn-primary text-[#002C5C] bg-[#EEF4FF] mb-2">Not Applied</button>
-
-            <p class="text-[#323B49] text-[14px] mb-5">Build cross-platform mobile applications using React Native. Work on products used by millions of users worldwide.</p>
-
-
-            <button onclick="addToInterview(this)" class="btn btn-neutral btn-outline text-[#10B981] border-[#10B981] font-semibold mr-2">Interview</button>
-
-            <button onclick="addToRejected(this)" class="btn btn-neutral btn-outline  text-[#EF4444] border-[#EF4444] font-semibold">Rejected</button>
 
             </div>
+
+
+            <!-- card 2 -->
+            <div class="job-card bg-white rounded-lg border border-[#F1F2F4] p-6 flex justify-between">
+
+
+                <div>
+
+                    <div>
+                        <p class="title-name text-[#002C5C] font-semibold text-[18px]">ByteWave Technologies 2</p>
+                        <p class="description-name text-[#64748B]">Backend Developer 2</p>
+                    </div>
+                    
+                    <p class="text-[#64748B] text-[14px] mb-5 salary">
+                        Chattogram, Bangladesh • Full-time • $60,000 - $80,000 TYF
+                    </p>
+
+                    <p class="status-btn btn btn-soft btn-primary text-[#002C5C] bg-[#EEF4FF] mb-2 ">
+                        Not Applied
+                    </p>
+
+                    <p class="note text-[#323B49] text-[14px] mb-5">
+                         Build scalable REST APIs using Node.js and MongoDB. Optimize server performance and database queries. TF
+                    </p>
+
+                    <button
+                        class="interview-btn btn btn-neutral btn-outline text-[#10B981] border-[#10B981] font-semibold mr-2">
+                        Interview
+                    </button>
+    
+                    <button id="rejected-btn" 
+                        class="btn btn-neutral btn-outline text-[#EF4444] border-[#EF4444] font-semibold">
+                        Rejected
+                    </button>
+
+                </div>
+
+                <button class="delete-btn btn btn-circle">
+                    <img src="./Group 1.png" alt="" class="cursor-pointer">
+                </button>
+
+            </div>
+           
+
 
         </section>
 
-    </main>
+        </main>
     <script src="./script/script.js"></script>
 </body>
 </html>
+
