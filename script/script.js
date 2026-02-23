@@ -219,7 +219,7 @@ function renderInterview (){
     filteredSection.innerHTML = `
         <div class="flex flex-col items-center justify-center py-20">
             <img src="./jobs.png" alt="No Rejected Jobs" class="w-40 h-40 mb-4">
-            <p class="text-gray-500 text-lg">No Rejected Jobs Yet!</p>
+            <p class="text-gray-500 text-lg">No Interview Jobs Yet!</p>
             <p class="text-gray-500 text-lg">Check Back Soon for new job Opportunities</p>
         </div>
     `;
