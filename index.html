@@ -3,456 +3,629 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- google fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap" rel="stylesheet">
-    <!-- tailwind & daisyui -->
     <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css" />
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap" rel="stylesheet">
     <title>Job Application Tracker</title>
     <style>
-        *{ font-family: "Outfit", sans-serif;}
+        
+    .geist{
+        font-family: "Geist", sans-serif;
+        font-optical-sizing: auto;
+        }
     </style>
 </head>
-<body class="bg-[#fcf8f8]">
+<body class="bg-[#F8FAFC] geist">
 
-        <header class="w-[80%] mx-auto pt-16 md:sticky md:top-0 md:bg-[#fcf8f8]">
-            <h1 class="font-bold text-4xl text-[#002C5C] mb-5 ">Job Application Tracker</h1>
-            
+    <header
+    class="py-5 w-[80%] mx-auto">
+        <h1
+        class="text-3xl font-bold mb-5 text-[#002C5C]">
+        Job Application Tracker
+        </h1>
+        <!-- header container -->
+        <div 
+        class="grid grid-cols-1 md:grid-cols-3 gap-5">
+            <!-- div 1 -->
+            <div 
+            class="bg-white border-[#F1F2F4] p-5 rounded-lg">
+            <p
+            class="font-medium text-[#323B49]">
+            Total
+            </p>
 
-            <!-- job application tracker box -->
-            <div class="grid md:grid-cols-3 grid-cols-1 gap-4 mb-7">
-
-                <div class="col-span-1 w-full h-[100px] rounded-lg border border-[#F1F2F4] p-5 bg-white">
-                    <p class="font-medium text-[#323B49]">Total</p>
-                    <p id="total-jobs" class="font-bold text-2xl text-[#3B82F6]">0</p>
-                </div>
-
-                <div class="col-span-1 w-full h-[100px] rounded-lg border border-[#F1F2F4] p-5 bg-white">
-                    <p class="font-medium text-[#323B49]">Interview</p>
-                    <p class="font-bold text-2xl text-[#10B981]" id="total-interview">0</p>
-                </div>
-
-                <div class="col-span-1 w-full h-[100px] rounded-lg border border-[#F1F2F4] p-5 bg-white">
-                    <p class="font-medium text-[#323B49]">Rejected</p>
-                    <p class="font-bold text-2xl text-[#EF4444]" id="total-rejected">0</p>
-                </div>
-
+            <p 
+            id="total-job-count"
+            class="text-3xl font-bold text-[#002C5C]">
+            0
+            </p>
             </div>
 
-            <hr class="text-[#E6E7E9] mb-7">
-        </header>
+            <!-- div 2 -->
+            <div 
+            class="bg-white border-[#F1F2F4] p-5 rounded-lg">
+            <p
+            class="font-medium text-[#323B49]">
+            Interview
+            </p>
 
-
-        <main class="w-[80%] mx-auto pt-16">
-
-            <div class="flex justify-between mb-6">
-
-                <p class="text-xl text-[#002C5C] font-semibold ">Available Jobs</p>
-                <p class="font-medium text-[#64748B]"> <span id="total-jobs2">0</span> jobs</p>
-
+            <p 
+            id="total-interview-count"
+            class="text-3xl font-bold text-[#10B981]">
+            0
+            </p>
             </div>
 
-            <!-- all interview & reject btn -->
-            <div id="all-btn" class="flex gap-2 mb-4">
-                
-                <button onclick="toggleStyle('all-filter-btn')" class="btn btn-xs sm:btn-sm md:btn-md lg:btn-lg xl:btn-md bg-[#3B82F6] text-white" id="all-filter-btn">All</button>
+            <!-- div 3 -->
+            <div 
+            class="bg-white border-[#F1F2F4] p-5 rounded-lg">
+            <p
+            class="font-medium text-[#323B49]">
+            Rejected
+            </p>
 
-                <button onclick="toggleStyle('interview-filter-btn')" class="btn btn-xs sm:btn-sm md:btn-md lg:btn-lg xl:btn-md" id="interview-filter-btn">Interview</button>
-
-                <button onclick="toggleStyle('rejected-filter-btn')" class="btn btn-xs sm:btn-sm md:btn-md lg:btn-lg xl:btn-md" id="rejected-filter-btn">Rejected</button>
-
+            <p 
+            id="total-rejected-count"
+            class="text-3xl font-bold text-[#EF4444]">
+            0
+            </p>
             </div>
+        </div>
+    </header>
 
-            <!-- Filtered card -->
+    <!-- main section -->
+     <main
+     id="main-container"
+     class="w-[80%] mx-auto">
 
-        <section id="filtered-section" class="hidden space-y-4">
+        <!-- available jobs -->
+         <div
+         class="mb-5 flex justify-between">
+            <p
+            class="text-xl font-semibold text-[#002C5C]">
+                Available Jobs
+            </p>
 
-        </section>
+            <p
+            class="text-lg font-medium text-[#64748B]">
+                <span id="available-jobs">0</span> Jobs
+            </p>
+         </div>
+        <!-- switch-tab-btn -->
+         <div
+         id="switch-btn-parent"
+         class="flex flex-col md:flex-row gap-5 mb-5">
+            <button
+            onclick="switchTab('all')"
+            id="tab-all"
+            class="btn btn-soft bg-[#3B82F6] text-[#64748B]">
+            All
+            </button>
 
+            <button
+            onclick="switchTab('interview')"
+            id="tab-interview"
+            class="btn btn-soft text-[#64748B]">
+            Interview
+            </button>
 
-        <!-- card section -->
-        <section id="all-cards" class="space-y-4">
+            <button 
+            onclick="switchTab('rejected')"
+            id="tab-rejected"
+            class="btn btn-soft text-[#64748B]">
+            Rejected
+            </button>
+         </div>
+
+        <!-- all card section -->
+        <div
+        id="all-card-section"
+        class="all-cards-container hidden space-y-5"> 
 
             <!-- card 1 -->
-            <div class="job-card bg-white rounded-lg border border-[#F1F2F4] p-6 flex justify-between">
-
-
-                <div>
-
-                    <div>
-                        <p class="title-name text-[#002C5C] font-semibold text-[18px]">ByteWave Technologies</p>
-                        <p class="description-name text-[#64748B]">Backend Developer</p>
-                    </div>
-                    
-                    <p class="text-[#64748B] text-[14px] mb-5 salary">
-                        Chattogram, Bangladesh • Full-time • $60,000 - $80,000
+            <div
+            class="card-container bg-white border-[#F1F2F4]  flex justify-between p-5 rounded-lg">
+                <div
+                class="space-y-3">
+                    <h1
+                    class="font-semibold text-lg text-[#002C5C]">
+                    Mobile First Corp
+                    </h1>
+                    <p class="text-[#64748B]">
+                    React Native Developer
                     </p>
-
-                    <p class="status-btn btn btn-soft btn-primary text-[#002C5C] bg-[#EEF4FF] mb-2 ">
-                        Not Applied
+                    <p 
+                    class="text-[#64748B]">
+                        Remote • Full-time • $130,000 - $175,000
                     </p>
-
-                    <p class="info text-[#323B49] text-[14px] mb-5">
-                         Build scalable REST APIs using Node.js and MongoDB. Optimize server performance and database queries.
-                    </p>
-
                     <button
-                        class="interview-btn btn btn-neutral btn-outline text-[#10B981] border-[#10B981] font-semibold mr-2">
+                    class="bg-[#EEF4FF] font-medium p-3 rounded-md text-[#002C5C] status-icon">
+                    Not Applied
+                    </button>
+                    <p
+                    class="w-[80%]">
+                    Build cross-platform mobile applications using React Native. Work on products used by millions of users worldwide.
+                    </p>
+                    <!-- interview && rejected btn -->
+                    <div
+                    id="card-section-btn"
+                    class="flex gap-4">
+                        <button
+                        class="interview btn bg-transparent border-[#10B981] text-[#10B981] font-semibold">
                         Interview
-                    </button>
-    
-                    <button
-                        class="rejected-btn btn btn-neutral btn-outline text-[#EF4444] border-[#EF4444] font-semibold">
+                        </button>
+
+                        <button
+                        class="rejected btn bg-transparent border-[#EF4444] text-[#EF4444]">
                         Rejected
-                    </button>
-
+                        </button>
+                    </div>
                 </div>
-
-                <button class="delete-btn btn btn-circle">
-                    <img src="./Group 1.png" alt="" class="cursor-pointer">
-                </button>
-
+                <!-- delete btn -->
+                 <div>
+                    <button>
+                    <img class="delete-btn cursor-pointer sm:btn-sm md:btn-md lg:btn-lg xl:btn-xl" src="./Group 1.png" alt="">
+                    </button>
+                 </div>
             </div>
-
 
             <!-- card 2 -->
-            <div class="job-card bg-white rounded-lg border border-[#F1F2F4] p-6 flex justify-between">
-
-
-                <div>
-
-                    <div>
-                        <p class="title-name text-[#002C5C] font-semibold text-[18px]">Novatex Technologies </p>
-                        <p class="description-name text-[#64748B]">Ui Ux Developer</p>
-                    </div>
-                    
-                    <p class="text-[#64748B] text-[14px] mb-5 salary">
-                        Dhaka, Bangladesh • Remote • $50,000 - $70,000
+            <div
+            class="card-container bg-white border-[#F1F2F4]  flex justify-between p-5 rounded-lg">
+                <div
+                class="space-y-3">
+                    <h1
+                    class="font-semibold text-lg text-[#002C5C]">
+                    CloudSync Ltd
+                    </h1>
+                    <p class="text-[#64748B]">
+                    Frontend Engineer
                     </p>
-
-                    <p class="status-btn btn btn-soft btn-primary text-[#002C5C] bg-[#EEF4FF] mb-2 ">
-                        Not Applied
+                    <p 
+                    class="text-[#64748B]">
+                        Remote • Full-time • $130,000 - $175,000Hybrid • Full-time • $100,000 - $140,000
                     </p>
-
-                    <p class="info text-[#323B49] text-[14px] mb-5">
-                         Design intuitive and visually appealing user interfaces, create seamless user experiences, and collaborate with developers to bring digital products to life. Conduct user research, wireframing, and prototyping to optimize usability and engagement.
-                    </p>
-
                     <button
-                        class="interview-btn btn btn-neutral btn-outline text-[#10B981] border-[#10B981] font-semibold mr-2">
+                    class="bg-[#EEF4FF] font-medium p-3 rounded-md text-[#002C5C] status-icon">
+                    Not Applied
+                    </button>
+                    <p
+                    class="w-[80%]">
+                    Develop intuitive UI components using React and maintain high performance on web applications.
+                    </p>
+                    <!-- interview && rejected btn -->
+                    <div
+                    id="card-section-btn"
+                    class="flex gap-4">
+                        <button
+                        class="interview btn bg-transparent border-[#10B981] text-[#10B981] font-semibold">
                         Interview
-                    </button>
-    
-                    <button 
-                        class="rejected-btn btn btn-neutral btn-outline text-[#EF4444] border-[#EF4444] font-semibold">
+                        </button>
+
+                        <button
+                        class="rejected btn bg-transparent border-[#EF4444] text-[#EF4444]">
                         Rejected
-                    </button>
-
+                        </button>
+                    </div>
                 </div>
-
-                <button class="delete-btn btn btn-circle">
-                    <img src="./Group 1.png" alt="" class="cursor-pointer">
-                </button>
-
+                <!-- delete btn -->
+                 <div>
+                    <button>
+                    <img class="delete-btn cursor-pointer sm:btn-sm md:btn-md lg:btn-lg xl:btn-xl" src="./Group 1.png" alt="">
+                    </button>
+                 </div>
             </div>
 
-
             <!-- card 3 -->
-            <div class="job-card bg-white rounded-lg border border-[#F1F2F4] p-6 flex justify-between">
-
-
-                <div>
-
-                    <div>
-                        <p class="title-name text-[#002C5C] font-semibold text-[18px]">QSB Future Technologies</p>
-                        <p class="description-name text-[#64748B]">Backend Developer</p>
-                    </div>
-                    
-                    <p class="text-[#64748B] text-[14px] mb-5 salary">
-                        Dhaka, Bangladesh • Full-time • $70,000 - $90,000
+            <div
+            class="card-container bg-white border-[#F1F2F4]  flex justify-between p-5 rounded-lg">
+                <div
+                class="space-y-3">
+                    <h1
+                    class="font-semibold text-lg text-[#002C5C]">
+                    NextGen AI
+                    </h1>
+                    <p class="text-[#64748B]">
+                    Machine Learning Engineer
                     </p>
-
-                    <p class="status-btn btn btn-soft btn-primary text-[#002C5C] bg-[#EEF4FF] mb-2 ">
-                        Not Applied
+                    <p 
+                    class="text-[#64748B]">
+                        Remote • Full-time • $140,000 - $180,000
                     </p>
-
-                    <p class="info text-[#323B49] text-[14px] mb-5">
-                         Build scalable and secure server-side applications, design and maintain APIs, and optimize database performance. Collaborate with frontend teams to ensure seamless data flow and robust functionality across platforms.
-                    </p>
-
                     <button
-                        class="interview-btn btn btn-neutral btn-outline text-[#10B981] border-[#10B981] font-semibold mr-2">
+                    class="bg-[#EEF4FF] font-medium p-3 rounded-md text-[#002C5C] status-icon">
+                    Not Applied
+                    </button>
+                    <p
+                    class="w-[80%]">
+                    Design and implement ML models for real-world AI applications used by global clients.
+                    </p>
+                    <!-- interview && rejected btn -->
+                    <div
+                    id="card-section-btn"
+                    class="flex gap-4">
+                        <button
+                        class="interview btn bg-transparent border-[#10B981] text-[#10B981] font-semibold">
                         Interview
-                    </button>
-    
-                    <button 
-                        class="rejected-btn btn btn-neutral btn-outline text-[#EF4444] border-[#EF4444] font-semibold">
+                        </button>
+
+                        <button
+                        class="rejected btn bg-transparent border-[#EF4444] text-[#EF4444]">
                         Rejected
-                    </button>
-
+                        </button>
+                    </div>
                 </div>
-
-                <button class="delete-btn btn btn-circle">
-                    <img src="./Group 1.png" alt="" class="cursor-pointer">
-                </button>
-
+                <!-- delete btn -->
+                 <div>
+                    <button>
+                    <img class="delete-btn cursor-pointer sm:btn-sm md:btn-md lg:btn-lg xl:btn-xl" src="./Group 1.png" alt="">
+                    </button>
+                 </div>
             </div>
 
             <!-- card 4 -->
-            <div class="job-card bg-white rounded-lg border border-[#F1F2F4] p-6 flex justify-between">
-
-
-                <div>
-
-                    <div>
-                        <p class="title-name text-[#002C5C] font-semibold text-[18px]">QansF Technologies</p>
-                        <p class="description-name text-[#64748B]">Frontend Developer</p>
-                    </div>
-                    
-                    <p class="text-[#64748B] text-[14px] mb-5 salary">
-                        Khulna, Bangladesh • Full-time • $70,000 - $90,000
+            <div
+            class="card-container bg-white border-[#F1F2F4]  flex justify-between p-5 rounded-lg">
+                <div
+                class="space-y-3">
+                    <h1
+                    class="font-semibold text-lg text-[#002C5C]">
+                    QuantumSoft
+                    </h1>
+                    <p class="text-[#64748B]">
+                    Backend Developer
                     </p>
-
-                    <p class="status-btn btn btn-soft btn-primary text-[#002C5C] bg-[#EEF4FF] mb-2 ">
-                        Not Applied
+                    <p 
+                    class="text-[#64748B]">
+                        Hybrid • Full-time • $110,000 - $150,000
                     </p>
-
-                    <p class="info text-[#323B49] text-[14px] mb-5">
-                         Develop responsive and interactive user interfaces using modern frontend technologies. Collaborate with designers and backend developers to implement seamless user experiences and optimize performance across devices and browsers.
-                    </p>
-
                     <button
-                        class="interview-btn btn btn-neutral btn-outline text-[#10B981] border-[#10B981] font-semibold mr-2">
+                    class="bg-[#EEF4FF] font-medium p-3 rounded-md text-[#002C5C] status-icon">
+                    Not Applied
+                    </button>
+                    <p
+                    class="w-[80%]">
+                    Develop scalable server-side applications using Node.js and ensure secure API integrations.
+                    </p>
+                    <!-- interview && rejected btn -->
+                    <div
+                    id="card-section-btn"
+                    class="flex gap-4">
+                        <button
+                        class="interview btn bg-transparent border-[#10B981] text-[#10B981] font-semibold">
                         Interview
-                    </button>
-    
-                    <button 
-                        class="rejected-btn btn btn-neutral btn-outline text-[#EF4444] border-[#EF4444] font-semibold">
+                        </button>
+
+                        <button
+                        class="rejected btn bg-transparent border-[#EF4444] text-[#EF4444]">
                         Rejected
-                    </button>
-
+                        </button>
+                    </div>
                 </div>
-
-                <button class="delete-btn btn btn-circle">
-                    <img src="./Group 1.png" alt="" class="cursor-pointer">
-                </button>
-
+                <!-- delete btn -->
+                 <div>
+                    <button>
+                    <img class="delete-btn cursor-pointer sm:btn-sm md:btn-md lg:btn-lg xl:btn-xl" src="./Group 1.png" alt="">
+                    </button>
+                 </div>
             </div>
 
             <!-- card 5 -->
-            <div class="job-card bg-white rounded-lg border border-[#F1F2F4] p-6 flex justify-between">
-
-
-                <div>
-
-                    <div>
-                        <p class="title-name text-[#002C5C] font-semibold text-[18px]">NAVANA Technologies</p>
-                        <p class="description-name text-[#64748B]">Backend Developer</p>
-                    </div>
-                    
-                    <p class="text-[#64748B] text-[14px] mb-5 salary">
-                        Dhaka, Bangladesh • Full-time • $60,000 - $80,000
+            <div
+            class="card-container bg-white border-[#F1F2F4]  flex justify-between p-5 rounded-lg">
+                <div
+                class="space-y-3">
+                    <h1
+                    class="font-semibold text-lg text-[#002C5C]">
+                    TechNova
+                    </h1>
+                    <p class="text-[#64748B]">
+                    Full Stack Developer
                     </p>
-
-                    <p class="status-btn btn btn-soft btn-primary text-[#002C5C] bg-[#EEF4FF] mb-2 ">
-                        Not Applied
+                    <p 
+                    class="text-[#64748B]">
+                        Remote • Full-time • $125,000 - $170,000
                     </p>
-
-                    <p class="info text-[#323B49] text-[14px] mb-5">
-                         Design, develop, and maintain server-side logic, APIs, and database systems. Ensure application scalability, security, and high performance while collaborating with frontend teams to deliver seamless end-to-end solutions.
-                    </p>
-
                     <button
-                        class="interview-btn btn btn-neutral btn-outline text-[#10B981] border-[#10B981] font-semibold mr-2">
+                    class="bg-[#EEF4FF] font-medium p-3 rounded-md text-[#002C5C] status-icon">
+                    Not Applied
+                    </button>
+                    <p
+                    class="w-[80%]">
+                    ork on both frontend and backend features for scalable web applications with modern technologies.
+                    </p>
+                    <!-- interview && rejected btn -->
+                    <div
+                    id="card-section-btn"
+                    class="flex gap-4">
+                        <button
+                        class="interview btn bg-transparent border-[#10B981] text-[#10B981] font-semibold">
                         Interview
-                    </button>
-    
-                    <button 
-                        class="rejected-btn btn btn-neutral btn-outline text-[#EF4444] border-[#EF4444] font-semibold">
+                        </button>
+
+                        <button
+                        class="rejected btn bg-transparent border-[#EF4444] text-[#EF4444]">
                         Rejected
-                    </button>
-
+                        </button>
+                    </div>
                 </div>
-
-                <button class="delete-btn btn btn-circle">
-                    <img src="./Group 1.png" alt="" class="cursor-pointer">
-                </button>
-
+                <!-- delete btn -->
+                 <div>
+                    <button>
+                    <img class="delete-btn cursor-pointer sm:btn-sm md:btn-md lg:btn-lg xl:btn-xl" src="./Group 1.png" alt="">
+                    </button>
+                 </div>
             </div>
 
-
             <!-- card 6 -->
-            <div class="job-card bg-white rounded-lg border border-[#F1F2F4] p-6 flex justify-between">
-
-
-                <div>
-
-                    <div>
-                        <p class="title-name text-[#002C5C] font-semibold text-[18px]">BYB Solutions</p>
-                        <p class="description-name text-[#64748B]">Backend Developer</p>
-                    </div>
-                    
-                    <p class="text-[#64748B] text-[14px] mb-5 salary">
-                        Dhaka, Bangladesh • Full-time • $50,000 - $70,000
+            <div
+            class="card-container bg-white border-[#F1F2F4]  flex justify-between p-5 rounded-lg">
+                <div
+                class="space-y-3">
+                    <h1
+                    class="font-semibold text-lg text-[#002C5C]">
+                    DevStream
+                    </h1>
+                    <p class="text-[#64748B]">
+                    DevOps Engineer
                     </p>
-
-                    <p class="status-btn btn btn-soft btn-primary text-[#002C5C] bg-[#EEF4FF] mb-2 ">
-                        Not Applied
+                    <p 
+                    class="text-[#64748B]">
+                        Remote • Full-time • $130,000 - $165,000
                     </p>
-
-                    <p class="info text-[#323B49] text-[14px] mb-5">
-                         Implement robust server-side architectures, manage databases efficiently, and optimize backend processes. Work closely with frontend developers to ensure smooth data flow and maintain high-performance applications.
-                    </p>
-
                     <button
-                        class="interview-btn btn btn-neutral btn-outline text-[#10B981] border-[#10B981] font-semibold mr-2">
+                    class="bg-[#EEF4FF] font-medium p-3 rounded-md text-[#002C5C] status-icon">
+                    Not Applied
+                    </button>
+                    <p
+                    class="w-[80%]">
+                    Maintain CI/CD pipelines and ensure smooth deployment processes across multiple environments.
+                    </p>
+                    <!-- interview && rejected btn -->
+                    <div
+                    id="card-section-btn"
+                    class="flex gap-4">
+                        <button
+                        class="interview btn bg-transparent border-[#10B981] text-[#10B981] font-semibold">
                         Interview
-                    </button>
-    
-                    <button 
-                        class="rejected-btn btn btn-neutral btn-outline text-[#EF4444] border-[#EF4444] font-semibold">
+                        </button>
+
+                        <button
+                        class="rejected btn bg-transparent border-[#EF4444] text-[#EF4444]">
                         Rejected
-                    </button>
-
+                        </button>
+                    </div>
                 </div>
-
-                <button class="delete-btn btn btn-circle">
-                    <img src="./Group 1.png" alt="" class="cursor-pointer">
-                </button>
-
+                <!-- delete btn -->
+                 <div>
+                    <button>
+                    <img class="delete-btn cursor-pointer sm:btn-sm md:btn-md lg:btn-lg xl:btn-xl" src="./Group 1.png" alt="">
+                    </button>
+                 </div>
             </div>
 
             <!-- card 7 -->
-            <div class="job-card bg-white rounded-lg border border-[#F1F2F4] p-6 flex justify-between">
-
-
-                <div>
-
-                    <div>
-                        <p class="title-name text-[#002C5C] font-semibold text-[18px]">Bytech Technologies</p>
-                        <p class="description-name text-[#64748B]">Frontend Developer 2</p>
-                    </div>
-                    
-                    <p class="text-[#64748B] text-[14px] mb-5 salary">
-                        Jessore, Bangladesh • Full-time • $66,000 - $76,000
+            <div
+            class="card-container bg-white border-[#F1F2F4]  flex justify-between p-5 rounded-lg">
+                <div
+                class="space-y-3">
+                    <h1
+                    class="font-semibold text-lg text-[#002C5C]">
+                    PixelWorks
+                    </h1>
+                    <p class="text-[#64748B]">
+                    UI/UX Designer
                     </p>
-
-                    <p class="status-btn btn btn-soft btn-primary text-[#002C5C] bg-[#EEF4FF] mb-2 ">
-                        Not Applied
+                    <p 
+                    class="text-[#64748B]">
+                        Hybrid • Full-time • $90,000 - $120,000
                     </p>
-
-                    <p class="info text-[#323B49] text-[14px] mb-5">
-                         Create dynamic and responsive web interfaces using modern frontend frameworks. Focus on delivering seamless user interactions, optimizing performance, and collaborating with backend teams to ensure cohesive application functionality.
-                    </p>
-
                     <button
-                        class="interview-btn btn btn-neutral btn-outline text-[#10B981] border-[#10B981] font-semibold mr-2">
+                    class="bg-[#EEF4FF] font-medium p-3 rounded-md text-[#002C5C] status-icon">
+                    Not Applied
+                    </button>
+                    <p
+                    class="w-[80%]">
+                    Design visually appealing and user-friendly interfaces for web and mobile applications.
+                    </p>
+                    <!-- interview && rejected btn -->
+                    <div
+                    id="card-section-btn"
+                    class="flex gap-4">
+                        <button
+                        class="interview btn bg-transparent border-[#10B981] text-[#10B981] font-semibold">
                         Interview
-                    </button>
-    
-                    <button 
-                        class="rejected-btn btn btn-neutral btn-outline text-[#EF4444] border-[#EF4444] font-semibold">
+                        </button>
+
+                        <button
+                        class="rejected btn bg-transparent border-[#EF4444] text-[#EF4444]">
                         Rejected
-                    </button>
-
+                        </button>
+                    </div>
                 </div>
-
-                <button class="delete-btn btn btn-circle">
-                    <img src="./Group 1.png" alt="" class="cursor-pointer">
-                </button>
-
+                <!-- delete btn -->
+                 <div>
+                    <button>
+                    <img class="delete-btn cursor-pointer sm:btn-sm md:btn-md lg:btn-lg xl:btn-xl" src="./Group 1.png" alt="">
+                    </button>
+                 </div>
             </div>
 
             <!-- card 8 -->
-            <div class="job-card bg-white rounded-lg border border-[#F1F2F4] p-6 flex justify-between">
-
-
-                <div>
-
-                    <div>
-                        <p class="title-name text-[#002C5C] font-semibold text-[18px]">QSF Future Tech</p>
-                        <p class="description-name text-[#64748B]">Backend Developer</p>
-                    </div>
-                    
-                    <p class="text-[#64748B] text-[14px] mb-5 salary">
-                        Dhaka, Bangladesh • Full-time • $90,000 - $110,000
+            <div
+            class="card-container bg-white border-[#F1F2F4]  flex justify-between p-5 rounded-lg">
+                <div
+                class="space-y-3">
+                    <h1
+                    class="font-semibold text-lg text-[#002C5C]">
+                    CyberCore
+                    </h1>
+                    <p class="text-[#64748B]">
+                    Cybersecurity Analyst
                     </p>
-
-                    <p class="status-btn btn btn-soft btn-primary text-[#002C5C] bg-[#EEF4FF] mb-2 ">
-                        Not Applied
+                    <p 
+                    class="text-[#64748B]">
+                        Remote • Full-time • $115,000 - $150,000
                     </p>
-
-                    <p class="info text-[#323B49] text-[14px] mb-5">
-                         Develop and maintain server-side applications, design efficient APIs, and ensure reliable data management. Focus on scalability, security, and performance while supporting seamless integration with frontend systems.
-                    </p>
-
                     <button
-                        class="interview-btn btn btn-neutral btn-outline text-[#10B981] border-[#10B981] font-semibold mr-2">
+                    class="bg-[#EEF4FF] font-medium p-3 rounded-md text-[#002C5C] status-icon">
+                    Not Applied
+                    </button>
+                    <p
+                    class="w-[80%]">
+                    Protect company assets and data by implementing security measures and monitoring threats.
+                    </p>
+                    <!-- interview && rejected btn -->
+                    <div
+                    id="card-section-btn"
+                    class="flex gap-4">
+                        <button
+                        class="interview btn bg-transparent border-[#10B981] text-[#10B981] font-semibold">
                         Interview
-                    </button>
-    
-                    <button 
-                        class="rejected-btn btn btn-neutral btn-outline text-[#EF4444] border-[#EF4444] font-semibold">
+                        </button>
+
+                        <button
+                        class="rejected btn bg-transparent border-[#EF4444] text-[#EF4444]">
                         Rejected
-                    </button>
-
+                        </button>
+                    </div>
                 </div>
-
-                <button class="delete-btn btn btn-circle">
-                    <img src="./Group 1.png" alt="" class="cursor-pointer">
-                </button>
-
+                <!-- delete btn -->
+                 <div>
+                    <button>
+                    <img class="delete-btn cursor-pointer sm:btn-sm md:btn-md lg:btn-lg xl:btn-xl" src="./Group 1.png" alt="">
+                    </button>
+                 </div>
             </div>
-           
+
             <!-- card 9 -->
-            <div class="job-card bg-white rounded-lg border border-[#F1F2F4] p-6 flex justify-between">
-
-
-                <div>
-
-                    <div>
-                        <p class="title-name text-[#002C5C] font-semibold text-[18px]">WaveTech Technologies</p>
-                        <p class="description-name text-[#64748B]">Backend Developer</p>
-                    </div>
-                    
-                    <p class="text-[#64748B] text-[14px] mb-5 salary">
-                        Dhaka, Bangladesh • Full-time • $80,000 - $90,000
+            <div
+            class="card-container bg-white border-[#F1F2F4]  flex justify-between p-5 rounded-lg">
+                <div
+                class="space-y-3">
+                    <h1
+                    class="font-semibold text-lg text-[#002C5C]">
+                    BrightLabs
+                    </h1>
+                    <p class="text-[#64748B]">
+                    Software Engineer (JavaScript)
                     </p>
-
-                    <p class="status-btn btn btn-soft btn-primary text-[#002C5C] bg-[#EEF4FF] mb-2 ">
-                        Not Applied
+                    <p 
+                    class="text-[#64748B]">
+                        Remote • Full-time • $105,000 - $145,000
                     </p>
-
-                    <p class="info text-[#323B49] text-[14px] mb-5">
-                         Develop and maintain server-side applications, design efficient APIs, and ensure reliable data management. Focus on scalability, security, and performance while supporting seamless integration with frontend systems.
-                    </p>
-
                     <button
-                        class="interview-btn btn btn-neutral btn-outline text-[#10B981] border-[#10B981] font-semibold mr-2">
+                    class="bg-[#EEF4FF] font-medium p-3 rounded-md text-[#002C5C] status-icon">
+                    Not Applied
+                    </button>
+                    <p
+                    class="w-[80%]">
+                    Develop scalable web applications using modern JavaScript frameworks and collaborate with global teams.
+                    </p>
+                    <!-- interview && rejected btn -->
+                    <div
+                    id="card-section-btn"
+                    class="flex gap-4">
+                        <button
+                        class="interview btn bg-transparent border-[#10B981] text-[#10B981] font-semibold">
                         Interview
-                    </button>
-    
-                    <button 
-                        class="rejected-btn btn btn-neutral btn-outline text-[#EF4444] border-[#EF4444] font-semibold">
+                        </button>
+
+                        <button
+                        class="rejected btn bg-transparent border-[#EF4444] text-[#EF4444]">
                         Rejected
-                    </button>
-
+                        </button>
+                    </div>
                 </div>
-
-                <button class="delete-btn btn btn-circle">
-                    <img src="./Group 1.png" alt="" class="cursor-pointer">
-                </button>
-
+                <!-- delete btn -->
+                 <div>
+                    <button>
+                    <img class="delete-btn cursor-pointer sm:btn-sm md:btn-md lg:btn-lg xl:btn-xl" src="./Group 1.png" alt="">
+                    </button>
+                 </div>
             </div>
-           
 
+            <!-- card 10 -->
+            <div
+            class="card-container bg-white border-[#F1F2F4]  flex justify-between p-5 rounded-lg">
+                <div
+                class="space-y-3">
+                    <h1
+                    class="font-semibold text-lg text-[#002C5C]">
+                    InnovaTech Solutions
+                    </h1>
+                    <p class="text-[#64748B]">
+                    Senior Backend Engineer
+                    </p>
+                    <p 
+                    class="text-[#64748B]">
+                        Hybrid • Full-time • $135,000 - $180,000
+                    </p>
+                    <button
+                    class="bg-[#EEF4FF] font-medium p-3 rounded-md text-[#002C5C] status-icon">
+                    Not Applied
+                    </button>
+                    <p
+                    class="w-[80%]">
+                    Design high-performance REST APIs and manage cloud infrastructure for enterprise-grade systems.
+                    </p>
+                    <!-- interview && rejected btn -->
+                    <div
+                    id="card-section-btn"
+                    class="flex gap-4">
+                        <button
+                        class="interview btn bg-transparent border-[#10B981] text-[#10B981] font-semibold">
+                        Interview
+                        </button>
 
-        </section>
+                        <button
+                        class="rejected btn bg-transparent border-[#EF4444] text-[#EF4444]">
+                        Rejected
+                        </button>
+                    </div>
+                </div>
+                <!-- delete btn -->
+                 <div>
+                    <button>
+                    <img class="delete-btn cursor-pointer sm:btn-sm md:btn-md lg:btn-lg xl:btn-xl" src="./Group 1.png" alt="">
+                    </button>
+                 </div>
+            </div>
 
-        </main>
-    <script src="./script/script.js"></script>
+        </div>
+
+        <!-- interview section -->
+        <div
+        id="interview-section"
+        class="hidden space-y-5">
+            <h1 class="font-bold text-2xl ">
+            Interview Jobs
+            </h1>
+        </div>
+
+        <!-- rejected section -->
+        <div
+        id="rejected-section"
+        class="hidden space-y-5">
+            <h1 class="font-bold text-2xl ">
+            Rejected Jobs
+            </h1>
+        </div>
+
+        <!-- empty section -->
+        <div
+        id="empty-container"
+        class="hidden h-screen">
+            <div class="flex flex-col justify-center items-center">
+                <img src="./jobs.png" alt="">
+                <p class="font-medium text-2xl">
+                    No Jobs Available
+                </p>
+            </div>
+        </div>
+     </main>
+<script src="./script/index.js"></script>
 </body>
 </html>
-
